@@ -2,23 +2,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>List of Products</title>
 </head>
 <body>
-
 <table>
-
     <tr>
-        <td>product name</td>
+        <td>Product Name</td>
     </tr>
-    <c:forEach var="product" items="${card.products}">
+    <c:forEach var="product" items="${shoppingCart.products}">
         <tr>
             <td>
                 <c:out value="${product}"/>
             </td>
         </tr>
     </c:forEach>
-
 </table>
+<h1> ${nimaCart} </h1>
 </body>
 </html>

@@ -8,4 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
+    @GetMapping("/home")
+    public String home() {
+        return "addToCart";
+    }
+
+//    @GetMapping("/cart")
+//    public String cart() {
+//        return "cart";
+//    }
 }

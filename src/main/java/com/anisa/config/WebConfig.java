@@ -12,12 +12,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.util.UrlPathHelper;
-
 import java.util.List;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages ={"com.anisa"} )
+@ComponentScan(basePackages = {"com.anisa"})
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
@@ -26,9 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ViewResolver viewResolver()
-    {
-        InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/view/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
@@ -36,16 +34,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        UrlPathHelper urlPathHelper=new UrlPathHelper();
+        UrlPathHelper urlPathHelper = new UrlPathHelper();
         urlPathHelper.setRemoveSemicolonContent(false);
         configurer.setUrlPathHelper(urlPathHelper);
     }
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-
-        //converters.add(new StringHttpMessageConverter());
-        //converters.add(new Jaxb2RootElementHttpMessageConverter());
         converters.add(new MappingJackson2HttpMessageConverter());
     }
 }

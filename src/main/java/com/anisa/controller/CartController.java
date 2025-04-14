@@ -1,57 +1,42 @@
 package com.anisa.controller;
 
 import com.anisa.entity.ShoppingCart;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
 @Controller
 @RequestMapping("/")
-@SessionAttributes({"shoppingCart"})//modelattribute ==>request.getSession().setAttribute("shoppingCart",productName);
+@SessionAttributes({"shoppingCart"}) //modelattribute ==> request.getSession().setAttribute("shoppingCart",productName);
 public class CartController {
 
-
-
-    @GetMapping("/home")
-    public String home()
-    {
-        return "addToCart";
-    }
-
     @ModelAttribute("shoppingCart")
-    public ShoppingCart shoppingCart()
-    {
-
+    public ShoppingCart shoppingCart() {
         return new ShoppingCart();
     }
 
+    @ModelAttribute("nimaCart")
+    public String nimaCart() {
+        return "nimaCartController";
+    }
+
     @PostMapping("/addToCart")
-    public String addToCart(Model  model, @ModelAttribute ShoppingCart shoppingCart,@RequestParam("productName") String productName)
-    {
-      //  request.getSession().setAttribute("product",productName);
+    public String addToCart(Model model, @ModelAttribute ShoppingCart shoppingCart, @RequestParam("productName") String productName) {
+        System.out.println("Before Adding: " + model.getAttribute("shoppingCart"));
         shoppingCart.addProduct(productName);
-        model.addAttribute("card",shoppingCart);
-        return "redirect:" +"product-page";
+        System.out.println("After Adding: " + model.getAttribute("shoppingCart"));
+        return "redirect:" + "product-page";
     }
 
     @GetMapping("product-page")
-    public String viewProductCart(Model  model,@ModelAttribute("shoppingCart") ShoppingCart shoppingCart)
-    {
-        if (shoppingCart!=null)
-            model.addAttribute("card",shoppingCart);
-        else
-            model.addAttribute("card",new ShoppingCart());
+    public String viewProductCart() {
+        System.out.println("Only Redirecting test");
         return "addToCart";
     }
 
-    @GetMapping("/card")
-    public String cart(@SessionAttribute("shoppingCart") ShoppingCart card,Model model)
-    {
-        model.addAttribute("card",card);
-        return "card";
+    @GetMapping("/cart")
+    public String cart() {
+        return "cart";
     }
 
 }
